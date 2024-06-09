@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    [SerializeField] private float attackDamage = 8f;
+    [SerializeField] private int attackDamage;
     [SerializeField] private float attackSpeed = 1f;
     private float canAttack;
 
@@ -25,7 +25,7 @@ public class EnemyScript : MonoBehaviour
         {
             if(attackSpeed <= canAttack)
             {
-                collision.gameObject.GetComponent<PlayerHealth>().UpdateHealth(-attackDamage);
+                collision.gameObject.GetComponent<Health>().Damage(attackDamage);
                 canAttack = 0;
             }
             else
