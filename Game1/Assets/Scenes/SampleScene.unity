@@ -224,8 +224,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1670023948}
   - component: {fileID: 1670023947}
-  - component: {fileID: 1670023946}
   - component: {fileID: 1670023949}
+  - component: {fileID: 1670023946}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
