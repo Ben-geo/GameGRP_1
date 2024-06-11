@@ -1,31 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private GameObject weapon = default;
     private GameObject atkArea = default;
     private GameObject anObject = default;
-
     private Animator anim;
 
+    // Rotate the weapon with mouse
+    private Vector2 pointerInput;
     private bool attacking = false;
     private float timeToAttack = 0.25f;
     private float timer = 0f;
+
 
     private int currentAttackCounter = 0;
     private Timer attackCounterResetTimer;
     // Start is called before the first frame update
     void Start()
     {
-        atkArea = transform.GetChild(0).GetChild(0).gameObject;
-        anObject = transform.GetChild(0).Find("Animations").gameObject;
+        weapon = transform.Find("Weapon").gameObject;
+        atkArea = transform.Find("Weapon").Find("Sword").GetChild(0).gameObject;
+        anObject = transform.Find("Weapon").Find("Sword").Find("Animations").gameObject;
+        
         anim = anObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 mousePos = transform.position;
+        mousePos.z = Camera.main.nearClipPlane;
+
+        pointerInput = (Camera.main.ScreenToWorldPoint(mousePos));
+        weapon.GetComponent<Weapon>().PointerPosition = pointerInput;
+        
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
