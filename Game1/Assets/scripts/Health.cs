@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Health : MonoBehaviour
 {
@@ -40,5 +41,14 @@ public class Health : MonoBehaviour
     {
         Debug.Log("I am Dead!");
         Destroy(gameObject);
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            Damage(15); 
+            Destroy(other.gameObject);
+        }
+        
     }
 }
