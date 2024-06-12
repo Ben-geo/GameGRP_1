@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private GameObject weapon = default;
+    
     private GameObject atkArea = default;
     private GameObject anObject = default;
     private Animator anim;
@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        weapon = transform.Find("Weapon").gameObject;
+        
         atkArea = transform.Find("Weapon").Find("Sword").GetChild(0).gameObject;
         anObject = transform.Find("Weapon").Find("Sword").Find("Animations").gameObject;
         
@@ -32,12 +32,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 mousePos = transform.position;
-        mousePos.z = Camera.main.nearClipPlane;
-
-        pointerInput = (Camera.main.ScreenToWorldPoint(mousePos));
-        weapon.GetComponent<Weapon>().PointerPosition = pointerInput;
-        
+       
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
@@ -65,7 +60,6 @@ public class PlayerAttack : MonoBehaviour
         anim.SetBool("active", true);
         anim.SetInteger("current", currentAttackCounter);
         currentAttackCounter++;
-        Debug.Log("WeaponNum = " + currentAttackCounter);
         if (currentAttackCounter == 3)
         {
             currentAttackCounter = 0;

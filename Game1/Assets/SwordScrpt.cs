@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class SwordScrpt : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Vector2 PointerPosition { get; set; }    
     void Start()
     {
         
@@ -14,5 +13,6 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     }
+        
+    }
 }
