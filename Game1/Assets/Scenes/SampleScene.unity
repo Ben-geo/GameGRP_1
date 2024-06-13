@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 416377690}
   - component: {fileID: 416377687}
   - component: {fileID: 416377694}
+  - component: {fileID: 416377695}
   m_Layer: 0
   m_Name: SampleEnemy
   m_TagString: Player
@@ -336,7 +337,7 @@ Transform:
   m_GameObject: {fileID: 416377684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.37, y: -0.25, z: 0}
+  m_LocalPosition: {x: 3.11, y: 2.23, z: 0}
   m_LocalScale: {x: 0.28246918, y: 0.25081447, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -387,6 +388,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.8018084, y: 4.15}
   m_EdgeRadius: 0
+--- !u!114 &416377695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416377684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85047a15fff3ab4db6e3e731df4712c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 3
+  rotateSpeed: 0.0025
+  distanceToShoot: 5
+  distanceToStop: 3
+  firingPoint: {fileID: 0}
+  fireRate: 0
+  bulletPrefab: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
