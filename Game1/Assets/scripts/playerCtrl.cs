@@ -1,3 +1,4 @@
+using IndieMarc.TopDown;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,20 +26,46 @@ public class playerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speedX = Input.GetAxisRaw("Horizontal") * movSpeed;
-        speedY = Input.GetAxisRaw("Vertical") * movSpeed;
-        rb.velocity = new Vector2 (speedX, speedY);
-
+        //movement
+        speedX = Input.GetAxisRaw("Horizontal");
+        speedY = Input.GetAxisRaw("Vertical");
+        rb.velocity = (new Vector2 (speedX, speedY).normalized)*movSpeed;
+        
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dodge();
+        }
     }
     private void FixedUpdate()
     {
         
         Vector2 lookDir = mousePos- rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x)*Mathf.Rad2Deg;
-        Debug.Log(angle);
         rb.rotation = angle;
-       
+        if (angle < 90 && angle > -90) {
+            if (!isLookingRight)
+            {
+                GetComponent<SpriteRenderer>().flipY = false;
+                GetComponent<SpriteRenderer>().flipX = false;
+
+                isLookingRight = true;
+            }
+        }
+        else
+        {
+            if (isLookingRight)
+            {
+                GetComponent<SpriteRenderer>().flipY = true;
+                GetComponent<SpriteRenderer>().flipX = true;
+                isLookingRight = false;
+            }
+            
+        }
+    }
+    private void Dodge()
+    {
+
     }
     
     
