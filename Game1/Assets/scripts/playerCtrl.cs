@@ -1,21 +1,27 @@
 using IndieMarc.TopDown;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class playerCtrl : MonoBehaviour
 {
-    public float movSpeed;
-    float speedX, speedY;
-    Rigidbody2D rb;
+    public float speed;
+    public float horizontal;
+    public float jumpingPower;
     private bool isLookingRight;
+
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
 
     private GameObject weapon = default;
 
     public Camera cam;
-    Vector2 mousePos;    
+    Vector2 mousePos;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,46 +33,27 @@ public class playerCtrl : MonoBehaviour
     void Update()
     {
         //movement
-        speedX = Input.GetAxisRaw("Horizontal");
-        speedY = Input.GetAxisRaw("Vertical");
-        rb.velocity = (new Vector2 (speedX, speedY).normalized)*movSpeed;
+        horizontal = Input.GetAxisRaw("Horizontal");
         
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
         {
-            Dodge();
+            Debug.Log("Space");
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+           
         }
+    }
+    private bool isGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
     private void FixedUpdate()
     {
-        
-        Vector2 lookDir = mousePos- rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x)*Mathf.Rad2Deg;
-        rb.rotation = angle;
-        if (angle < 90 && angle > -90) {
-            if (!isLookingRight)
-            {
-                GetComponent<SpriteRenderer>().flipY = false;
-                GetComponent<SpriteRenderer>().flipX = false;
-
-                isLookingRight = true;
-            }
-        }
-        else
-        {
-            if (isLookingRight)
-            {
-                GetComponent<SpriteRenderer>().flipY = true;
-                GetComponent<SpriteRenderer>().flipX = true;
-                isLookingRight = false;
-            }
-            
-        }
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
     private void Dodge()
     {
 
     }
-    
-    
+
+
 }
